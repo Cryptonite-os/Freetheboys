@@ -15,126 +15,129 @@
 
 body {
   min-height: 100vh;
-  background: #02050d;
+  background: #030712;
   color: white;
   font-family: Arial, sans-serif;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  padding: 20px;
   overflow: hidden;
-  position: relative;
-}
-
-body::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at 50% 45%,
-    rgba(0, 90, 255, 0.15), transparent 60%);
-  pointer-events: none;
 }
 
 .container {
-  width: 90%;
-  max-width: 1050px;
+  width: 100%;
+  max-width: 850px;
   text-align: center;
   position: relative;
-  z-index: 1;
 }
 
-.orbit {
+.container::before {
+  content: "";
   position: absolute;
-  width: 430px;
-  height: 95px;
-  border: 2px solid #087bff;
+  width: 350px;
+  height: 350px;
+  background: #0066ff;
+  filter: blur(150px);
+  opacity: 0.15;
   border-radius: 50%;
-  transform: rotate(-9deg);
-  top: -35px;
+  top: 50%;
   left: 50%;
-  translate: -50% 0;
-  opacity: 0.7;
-  box-shadow: 0 0 18px #087bff;
-  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: -1;
 }
 
 h1 {
-  font-size: clamp(27px, 5vw, 49px);
-  font-weight: 900;
-  letter-spacing: 2px;
-  margin-bottom: 20px;
-  position: relative;
+  font-size: clamp(24px, 5vw, 43px);
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 18px;
 }
 
 h1 span {
-  color: #078cff;
-  text-shadow: 0 0 18px #087bff;
+  color: #168cff;
+  text-shadow: 0 0 15px #087bff;
 }
 
 .subtitle {
-  color: #aabbd5;
-  letter-spacing: 5px;
-  font-size: 12px;
-  margin-bottom: 55px;
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: #9caecb;
+  margin-bottom: 50px;
+}
+
+.orbit {
+  width: 280px;
+  height: 65px;
+  border: 1px solid #087bff;
+  border-radius: 50%;
+  transform: rotate(-8deg);
+  margin: 0 auto -35px;
+  opacity: 0.65;
+  box-shadow: 0 0 15px #087bff;
 }
 
 .search-area {
   display: flex;
-  gap: 15px;
+  gap: 12px;
   width: 100%;
 }
 
 input {
   flex: 1;
   min-width: 0;
-  padding: 20px;
-  background: #050b18;
-  border: 2px solid #087bff;
+  padding: 19px 22px;
+  background: #081225;
+  border: 1px solid #087bff;
   border-radius: 40px;
   color: white;
-  font-size: 16px;
+  font-size: 15px;
   outline: none;
-  box-shadow: 0 0 15px rgba(0, 110, 255, 0.25);
+  box-shadow: 0 0 15px #063c83;
 }
 
 input:focus {
+  border-color: #38a9ff;
   box-shadow: 0 0 22px #087bff;
 }
 
 button {
-  padding: 18px 35px;
+  padding: 18px 30px;
   border: none;
-  border-radius: 35px;
-  background: linear-gradient(110deg, #00aaff, #064dff);
+  border-radius: 40px;
+  background: linear-gradient(120deg, #168cff, #0645d9);
   color: white;
-  font-size: 15px;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 0 20px rgba(0, 110, 255, 0.7);
-  transition: 0.3s;
+  box-shadow: 0 0 18px #075dff;
 }
 
 button:hover {
-  transform: scale(1.04);
-  box-shadow: 0 0 30px #087bff;
+  box-shadow: 0 0 30px #168cff;
+  transform: translateY(-2px);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: wait;
 }
 
 #status {
-  margin-top: 35px;
-  color: #36aaff;
-  font-size: 14px;
-  letter-spacing: 2px;
-  min-height: 20px;
-}
-
-.bottom {
-  margin-top: 65px;
-  color: #7890b5;
+  margin-top: 32px;
+  min-height: 22px;
+  color: #42aaff;
   font-size: 12px;
-  letter-spacing: 5px;
+  letter-spacing: 2px;
 }
 
-@media(max-width: 600px) {
+.footer {
+  margin-top: 65px;
+  color: #60799f;
+  font-size: 11px;
+  letter-spacing: 4px;
+}
+
+@media(max-width: 550px) {
   .search-area {
     flex-direction: column;
   }
@@ -145,11 +148,10 @@ button:hover {
 
   .subtitle {
     letter-spacing: 2px;
-    margin-bottom: 35px;
   }
 
   .orbit {
-    width: 260px;
+    width: 220px;
   }
 }
 </style>
@@ -157,7 +159,7 @@ button:hover {
 
 <body>
 
-<div class="container">
+<main class="container">
 
   <div class="orbit"></div>
 
@@ -176,47 +178,65 @@ button:hover {
       required
     >
 
-    <button type="submit">SEARCH ↗</button>
+    <button type="submit" id="searchButton">
+      SEARCH ↗
+    </button>
   </form>
 
-  <div id="status"></div>
+  <div id="status" aria-live="polite"></div>
 
-  <div class="bottom">
-    FAST &nbsp; • &nbsp; SECURE &nbsp; • &nbsp; FREE
+  <div class="footer">
+    FAST • SECURE • FREE
   </div>
 
-</div>
+</main>
 
 <script>
 const form = document.getElementById("searchForm");
-const statusText = document.getElementById("status");
-const website = document.getElementById("website");
+const input = document.getElementById("website");
+const button = document.getElementById("searchButton");
+const status = document.getElementById("status");
+
+const SHORT_ID = "_6HzLIJPH2A";
 
 form.addEventListener("submit", function(event) {
   event.preventDefault();
 
-  if (!website.value.trim()) return;
+  const requestedSite = input.value.trim();
 
-  const requestedSite = website.value.trim();
+  if (!requestedSite) {
+    status.textContent = "PLEASE ENTER A WEBSITE ADDRESS";
+    return;
+  }
 
-  form.querySelector("button").disabled = true;
-  website.disabled = true;
+  button.disabled = true;
+  input.disabled = true;
 
-  statusText.textContent = "INITIALIZING CONNECTION...";
+  const messages = [
+    "INITIALIZING CONNECTION...",
+    "VERIFYING REQUEST...",
+    "ESTABLISHING SESSION...",
+    "CONNECTION COMPLETE"
+  ];
 
-  setTimeout(() => {
-    statusText.textContent = "VERIFYING REQUEST...";
+  let index = 0;
 
-    setTimeout(() => {
-      statusText.textContent = "CONNECTION COMPLETE";
+  status.textContent = messages[index];
+
+  const interval = setInterval(() => {
+    index++;
+
+    if (index < messages.length) {
+      status.textContent = messages[index];
+    } else {
+      clearInterval(interval);
 
       setTimeout(() => {
-        window.location.href =
-          "https://www.youtube.com/shorts/Ay8lynMZ4mE";
+        window.location.assign(
+          "https://www.youtube.com/shorts/" + SHORT_ID
+        );
       }, 1000);
-
-    }, 1200);
-
+    }
   }, 1200);
 });
 </script>
